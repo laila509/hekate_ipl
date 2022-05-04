@@ -1,5 +1,3 @@
-![Image of Hekate](https://user-images.githubusercontent.com/3665130/60391760-bc1e8c00-9afe-11e9-8b7a-b065873081b2.png)
-
 【分享】大气层启动设置的互换
 
 研究了大气层的启动设置，主要区别就是Hekate_ipl.ini的设置。我发布的乐享大气层包和奇想大气层包，两者的区别就是启动设置，所以如果你想互换也是没有任何问题，因为乐享大气层包和奇想大气层包的Atmosphere和Sigpatch都是一样的。
@@ -22,4 +20,4 @@
 
 4.整合包=纯净包+搭配包，纯净包是必要的，但搭配包不一定要很多很全，因为很多插件和软件要么重复，要么无用，留个DBI，JKSV，Checkpoint和Edizon就够了。
 
-<img src="https://GitHub.com/laila509/hekate_ipl/blob/master/hekate_ipl.jpg?raw=true" align="center" width="80%" />
+<img src="https://GitHub.com/laila509/hekate_ipl/blob/master/Hekate_ipl.jpg?raw=true" align="center" width="80%" />
