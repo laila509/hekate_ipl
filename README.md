@@ -20,4 +20,4 @@
 
 4.整合包=纯净包+搭配包，纯净包是必要的，但搭配包不一定要很多很全，因为很多插件和软件要么重复，要么无用，留个DBI，JKSV，Checkpoint和Edizon就够了。
 
-<img src="https://GitHub.com/laila509/hekate_ipl/blob/master/Hekate_ipl.jpg?raw=true" align="center" width="80%" />
+<img src="https://GitHub.com/laila509/hekate_ipl/blob/master/Hekate_ipl.jpg?raw=true" align="center" width="70%" />
