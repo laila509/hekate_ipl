@@ -21,3 +21,5 @@
 3.不同的大气层整合包，除了启动顺序，还有Hosts和隐藏序号的区别，有些是只启动虚拟系统保护，真实系统不受限，其实这样就够了，但是还有些整合包是真实破解和虚拟都启用了保护。
 
 4.整合包=纯净包+搭配包，纯净包是必要的，但搭配包不一定要很多很全，因为很多插件和软件要么重复，要么无用，留个DBI，JKSV，Checkpoint和Edizon就够了。
+
+<img src="https://GitHub.com/laila509/hekate_ipl/blob/master/hekate_ipl.jpg?raw=true" align="center" width="80%" />
