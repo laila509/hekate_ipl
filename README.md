@@ -6,27 +6,27 @@ https://github.com/laila509/hekate_ipl
 
 【第一章  大气层纯净包整合教程】
 
-    1.整合大气层首先做纯净包，就是Atmosphere+Hekate+Sigpatch的三件套，有了它就可以破解系统，运行已安装的破解游戏。纯净包是基础包可直接用，只要加合适的引导就可适用所有破解机，不区分软破用的TX注入器或DQC注入器，不区分TX芯片还是HW芯片，软硬破通用。
+1.整合大气层首先做纯净包，就是Atmosphere+Hekate+Sigpatch的三件套，有了它就可以破解系统，运行已安装的破解游戏。纯净包是基础包可直接用，只要加合适的引导就可适用所有破解机，不区分软破用的TX注入器或DQC注入器，不区分TX芯片还是HW芯片，软硬破通用。
     
-    大气层整合包=纯净包+搭配包，搭配包就是特斯拉等一众插件和相册NRO软件的组合，搭配包不能直接使用，需要覆盖到纯净包或其它大气层整合包上使用，整合包应实用为主，需要插件和软件多少可以不断的添加删减。
+大气层整合包=纯净包+搭配包，搭配包就是特斯拉等一众插件和相册NRO软件的组合，搭配包不能直接使用，需要覆盖到纯净包或其它大气层整合包上使用，整合包应实用为主，需要插件和软件多少可以不断的添加删减。
     
-    2.最新的三件套版本是Atmosphere1.3.2，Hekate5.7.2，Sigpatchfor14.1.0/14.1.1
+2.最新的三件套版本是Atmosphere1.3.2，Hekate5.7.2，Sigpatchfor14.1.0/14.1.1
     
-    Atmosphere，https://github.com/Atmosphere-NX/Atmosphere/releases
+Atmosphere，https://github.com/Atmosphere-NX/Atmosphere/releases
     
-    下atmosphere-1.3.2-master-e96972c93+hbl-2.4.1+hbmenu-3.5.0.zip和fusee.bin，解包后是[atmosphere],[switch]和hbmenu.nro
+下atmosphere-1.3.2-master-e96972c93+hbl-2.4.1+hbmenu-3.5.0.zip和fusee.bin，解包后是[atmosphere],[switch]和hbmenu.nro
     
-    Hekate，https://github.com/CTCaer/hekate/releases
+Hekate，https://github.com/CTCaer/hekate/releases
     
-    下hekate_ctcaer_5.7.2_Nyx_1.2.2.zip，解包后是[bootloader]和hekate_ctcaer_5.7.2.bin
+下hekate_ctcaer_5.7.2_Nyx_1.2.2.zip，解包后是[bootloader]和hekate_ctcaer_5.7.2.bin
     
-    Sigpatch，https://github.com/ITotalJustice/patches/releases
+Sigpatch，https://github.com/ITotalJustice/patches/releases
     
-    下Sigpatches.zip，解包后是[atmosphere]和[Bootloader]
+下Sigpatches.zip，解包后是[atmosphere]和[Bootloader]
     
-    3.三件套不分先后复制到同一目录，fusee.bin移至/bootloader/payloads/
+3.三件套不分先后复制到同一目录，fusee.bin移至/bootloader/payloads/
     
-    4.通用的大气层设置，适用所有大气层包，在乐享或奇想大气层纯净包中找
+4.通用的大气层设置，适用所有大气层包，在乐享或奇想大气层纯净包中找
     
 override_config.ini，stratosphere.ini和system_settings.ini复制/atmosphere/config/
 
@@ -40,7 +40,7 @@ emummc.txt复制/atmosphere/hosts/
 
 如想真实破解系统也开hosts和序号保护，把emummc.txt再复制成sysmmc.txt，打开exosphere.ini把blank_prodinfo_sysmmc=0改成blank_prodinfo_sysmmc=1保存。
 
-    5.自编的Hekate设置，所有大气层包就这差别，可参照乐享或奇想大气层包调整
+5.自编的Hekate设置，所有大气层包就这差别，可参照乐享或奇想大气层包调整
     
 /bootloader/hekate_ipl.ini是启动文件，设置启动全靠它
 
@@ -50,7 +50,7 @@ emummc.txt复制/atmosphere/hosts/
 
 /bootloader/ini/的启动文件也和hekate_ipl.ini相似，在launch右边的more configs出现
 
-    6.后期升级三件套，只要在原版本上对比添加新的组件就行了
+6.后期升级三件套，只要在原版本上对比添加新的组件就行了
     
 下Beyond Compare，左右两边分别是旧整合包和新的三件套组件，区分哪些需要更新
 
@@ -224,21 +224,21 @@ id=cfw-sys，启动项ID
 
 【第四章  大气层搭配包整合教程】
 
-    1.搭配包分三类，分别是特斯拉内核、大气层插件、相册NRO软件。
+1.搭配包分三类，分别是特斯拉内核、大气层插件、相册NRO软件。
     
-    2.特斯拉内核三个构成，分别是特斯拉启动器ovlloader，特斯拉菜单ovlmenu.ovl，特斯拉系统设定ovlSysmodules.ovl，这是必须的，相当于特斯拉插件的纯净版。
+2.特斯拉内核三个构成，分别是特斯拉启动器ovlloader，特斯拉菜单ovlmenu.ovl，特斯拉系统设定ovlSysmodules.ovl，这是必须的，相当于特斯拉插件的纯净版。
     
-    3.大气层插件有很多，多个少个都行，随心添加删除，搭配包A组合就包含sys-clk超频插件、SaltyNX底座手持插件启动器、sys-con手柄插件启动器等。
+3.大气层插件有很多，多个少个都行，随心添加删除，搭配包A组合就包含sys-clk超频插件、SaltyNX底座手持插件启动器、sys-con手柄插件启动器等。
     
-    大气层插件也有启动器，在/atmosphere/contents/，除特斯拉启动器，其它大气层插件的启动器不要启动，如果要启动可以去深海工具箱的后台服务启动。
+大气层插件也有启动器，在/atmosphere/contents/，除特斯拉启动器，其它大气层插件的启动器不要启动，如果要启动可以去深海工具箱的后台服务启动。
     
-    4.大气层插件和特斯拉挂钩的，不少插件就有ovl和nro两个版本，ovl版功能阉割，但能嵌入特斯拉菜单，nro功能全，但要进相册开启这个nro，两个版本可以择其一，如sys-clk超频插件、edizon金手指插件。
+4.大气层插件和特斯拉挂钩的，不少插件就有ovl和nro两个版本，ovl版功能阉割，但能嵌入特斯拉菜单，nro功能全，但要进相册开启这个nro，两个版本可以择其一，如sys-clk超频插件、edizon金手指插件。
     
-    还有的大气层插件只有ovl版本，如emiibo插件、fastcfwswitch插件。
+还有的大气层插件只有ovl版本，如emiibo插件、fastcfwswitch插件。
     
-    还有的大气层插件只有启动器，没有ovl或nro版本，但可以在deepsea工具箱启动，如sys-con手柄插件、missioncontrol蓝牙手柄插件。
+还有的大气层插件只有启动器，没有ovl或nro版本，但可以在deepsea工具箱启动，如sys-con手柄插件、missioncontrol蓝牙手柄插件。
     
-    4.相册NRO软件也有很多，多个少个都行，随心添加删除，搭配包A组合就包含AtmoXL-Titel-Installer.nro游戏安装器、Checkpoint.nro存档管理器等。
+5.相册NRO软件也有很多，多个少个都行，随心添加删除，搭配包A组合就包含AtmoXL-Titel-Installer.nro游戏安装器、Checkpoint.nro存档管理器等。
 
 【第五章  大气层搭配包文件列表】
 
@@ -327,5 +327,3 @@ id=cfw-sys，启动项ID
       --jksv.nro，存档管理器
       
     --NXThemesInstaller.nro，主题安装器
-
-<img src="https://GitHub.com/laila509/hekate_ipl/blob/master/Hekate_ipl.jpg?raw=true" align="center" width="70%" />
