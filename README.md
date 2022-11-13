@@ -1,217 +1,184 @@
-# hekate - Nyx
+【分享】菜鸟都知道怎么整合大气层破解包2.0版
+    我不是什么大佬大神，也是和大家一样菜鸟入门，通过大佬大神们的教程，知道破解的流程，也学会整合大气层，通过使用觉得大气层越简单越好，那么多插件软件其实用途不大，而且可以根据需要增加。
+https://github.com/laila509/hekate_ipl
+    2.0版的教程比起前面1.0版的教程，补充Sigpatch获取方法，补充Tesla插件核心版本的区别。
 
-![Image of Hekate](https://user-images.githubusercontent.com/3665130/60391760-bc1e8c00-9afe-11e9-8b7a-b065873081b2.png)
+【第一章  大气层纯净包整合教程】
+    1.整合大气层首先做纯净包，就是Atmosphere+Hekate+Sigpatch的三件套，有了它就可以破解系统，运行已安装的破解游戏。纯净包是基础包可直接用，只要加合适的引导就可适用所有破解机，不区分软破用的TX注入器或DQC注入器，不区分TX芯片还是HW芯片，软硬破通用。另外通用的还有Switch系统的离线升级包，最新SW15.0.1系统。
+    大气层整合包=纯净包+搭配包，搭配包就是特斯拉等一众插件和相册NRO软件的组合，搭配包不能直接使用，需要覆盖到纯净包或其它大气层整合包上使用，整合包应实用为主，需要插件和软件多少可以不断的添加删减。
+    2.最新的三件套版本是Atmosphere1.4.0，Hekate5.9.0，Sigpatch最高15.0.0/15.0.1
+    Atmosphere，https://github.com/Atmosphere-NX/Atmosphere/releases
+    下atmosphere-1.4.0-master的zip和fusee.bin，zip解包后是[atmosphere],[switch]和hbmenu.nro
+    Hekate，https://github.com/CTCaer/hekate/releases
+    下hekate_ctcaer_5.9.0.zip，zip解包后是[bootloader]和hekate_ctcaer_5.9.0.bin
+    3.Sigpatch大气层签名补丁，允许大气层玩破解游戏，原下载https://github.com/ITotalJustice/patches/releases，已被关闭，所以可以自制或从其它地方找。
+    自制方法是下载https://github.com/mrdude2478/IPS_Patch_Creator/releases，在电脑上打开IPS_Patch_Creator，还要有大气层的package3文件、Switch系统离线升级包以及Lockpick_rcm获取对应Switch系统的prod.key。
+    Sigpatch分ES patch，FS patch，Loader patch和nfim_ctest，前三个和玩破解游戏有关，nfim_ctest可以跳过联网服务器认证。其中ES patch，FS patch和nfim_ctest需要switch离线升级包和对应prod.key才可以做出来，loader patch只需要大气层package3文件就可以做出来。大气层的引导分fss0和fusee，其中ES patch和nfim_ctest，两种引导一样，FS patch和Loader patch，两种引导不一样，但是只要都在TF卡上就不会出问题。
+    做出来的sigpatch是通用所有对应的大气层整合包，所以还可以从别人发布的大气层1.4.0整合包里获取。
+    sigpatch提取的位置是atmosphere/exefs_patches的es_patches和nfim_ctest两个文件夹，atmosphere/kip_patches的fs_patches和loader_patches两个文件夹，最后还有一个文件是bootloader/patches.ini，它是fss0引导的FS patch和Loader patch。
+    4.三件套不分先后复制到同一目录，fusee.bin移至/bootloader/payloads/
+    5.通用的大气层设置，适用所有大气层包，在奇乐融合大气层破解包中找
+override_config.ini，stratosphere.ini和system_settings.ini复制/atmosphere/config/
+exosphere.ini，万能前端hbmenu.nsp和sx gear的boot.dat复制根目录
+把hekate_ctcaer_5.9.0.bin重命名payload.bin
+把Lockpick_RCM.bin，TegraExplorer.bin等常用引导文件复制/bootloader/payloads/
+emummc.txt复制/atmosphere/hosts/
+如想真实破解系统也开hosts和序号保护，把emummc.txt再复制成sysmmc.txt，打开exosphere.ini把blank_prodinfo_sysmmc=0改成blank_prodinfo_sysmmc=1保存。
+    6.自编的Hekate设置，所有大气层包就这差别，可参照乐享或奇想大气层包调整
+/bootloader/hekate_ipl.ini是启动文件，设置启动全靠它
+/bootloader/bootlogo.bmp是开机图，文件名和位置以hekate_ipl.ini为准
+/bootloader/res/的图片是启动图标，文件名和位置以hekate_ipl.ini为准
+/bootloader/ini/的启动文件也和hekate_ipl.ini相似，在launch右边的more configs出现
+    7.后期升级三件套，只要在原版本上对比添加新的组件就行了
+下Beyond Compare，左右两边分别是旧整合包和新的三件套组件，区分哪些需要更新
 
+【第二章  大气层纯净包文件列表】
+[atmosphere]，是大气层的核心
+  -|-|-[config]，大气层配置文件
+    -|-|-override_config.ini，非必要，大气层默认设置
+    -|-|-stratosphere.ini，非必要，Hekate设置autonogc=1也可以
+    -|-|-system_settings.ini，必要，开hosts和关闭金手指自动启动
+  -|-|-[exefs_patches]，大气层插件
+     -|-|-[es_patches]，es插件，与SW系统对应，因大气层向下兼容，所以所有SW系统都放上
+        -|-|-这里一堆IPS文件，如现在总共有23个IPS文件，其中一个对应15.0.0/15.0.1系统
+     -|-|-[nfim_ctest]，免联服务器插件，与SW系统对应，同样都放上
+        -|-|-这里一堆IPS文件，和es插件同理
+  -|-|-[fatal_errors]，非必要，大气层运行出错会生成日志
+  -|-|-[flags]，非必要，可删
+  -|-|-[hbl_html]，非必要，可删
+  -|-|-[hosts]，host列表保护，阻止连服务器
+    -|-|-default.txt，默认不用管
+    -|-|-emummc.txt，这是在虚拟系统做host保护
+  -|-|-[kip_patches]，大气层插件
+    -|-|-[fs_patches]，fs插件，和es插件同理
+        -|-|-这里一堆IPS文件，但每次更新fs插件是2个，分别是exfat和fat32
+    -|-|-[loader_patches]，loader插件，与大气层版本对应，只需要一个
+        -|-|-这里只需一个IPS文件，对应大气层版本，就是与当前package3对应
+  -|-|-hbl.nsp，有了它才能进相册，homebrew启动器
+  -|-|-package3，大气层模块，以前名叫fusee-secondary.bin
+  -|-|-reboot_payload.bin，重启payload，可以在Hekate设置，也可以用Hekate重命名
+  -|-|-stratosphere.romfs，大气层模块，和package3，fusee.bin构成大气层基本核心
+[bootloader]，是Hekate的核心
+  -|-|-[ini]，是Hekate中more configs的引导配置
+    -|-|-lakka.ini，非必要，可以编辑
+  -|-|-[payloads]，可以在Hekate中加载它们
+    -|-|-commonproblemresolver.bin，一键关闭插件启动和删除主题，解决开机问题
+    -|-|-fusee.bin，大气层原版引导模块
+    -|-|-lockpick_rcm.bin，主机Keys获取工具
+    -|-|-tegraexplorer.bin，主机固件获取工具
+  -|-|-[res]，Hekate的图标、开机图等，可以编辑，需Hekate_ipl.ini调整
+    -|-|-图标分辨率192*192，开机图720*1280，位深度都是32
+    -|-|-[sys]，Hekate模块，和Hekate.bin构成Hekate基本核心
+    -|-|-这里几个文件都是必要的
+  -|-|-bootlogo.bmp，开机图，
+  -|-|-hekate_ipl.ini，Hekate启动设置文件
+  -|-|-patches.ini，fss0引导的FS和Loader插件以文本，和fusee引导不一样
+  -|-|-update.bin，最新Hekate.bin的重命名，不需要更新注入器的Payload.bin
+[switch]，所有相册的NRO软件，特斯拉的OVL插件都在这里
+  -|-|-daybreak.nro，大气层用Daybreak离线升级系统
+boot.dat，它如果是SX Gear的boot文件，TX注入器或TX芯片转大气层必要
+exosphere.ini，大气层配置文件，设置虚拟系统隐藏序号保护
+hbmenu.nro，相册的工具菜单
+hbmenu.nsp，万能前端，相册的工具菜单有高权限
+payload.bin，硬破机需要它来启动，TX转大气层也是启动它
 
-Custom Graphical Nintendo Switch bootloader, firmware patcher, tools, and many more.
+【第三章  乐享大气层的Hekate_ipl启动设置】
+    /bootloader/hekate_ipl.ini
+    [config]，常用设置
+autoboot=0，=0开机进Hekate主页，=1开机进第一项[ATM-AUTO]
+autoboot_list=0，=0，=1是more configs启动设置
+bootwait=3，开机图3秒内按音量-键返回Hekate主页
+backlight=100，背光亮度=100
+autohosoff=0，续航/OLED=1，防止关机重启
+autonogc=1，防止游戏卡槽升级固件
+updater2p=1，启动FSS0引导，就会替换reboot_payload.bin为Hekate。
+    [ATM-AUTO]，自动识别真实或虚拟系统（原版FUSEE引导）
+payload=bootloader/payloads/fusee.bin，大气层原版引导fusee.bin
+icon=bootloader/res/fusee.bmp，启动图标
+    [ATM-EMU]，虚拟系统（Hekate的Fss0引导）
+emummcforce=1，启动虚拟系统
+fss0=atmosphere/package3，Hekate的FSS0引导
+kip1patch=nosigchk，启动sigpatch
+atmosphere=1，启动大气层破解权限
+logopath=bootloader/bootlogo.bmp，开机图
+icon=bootloader/res/emunand.bmp，启动图标
+id=cfw-emu，fss0引导的启动项ID，在fastcfwswitch可切换
+    [OFW-SYS]，真实正版系统（Hekate的Fss0引导）
+emummc_force_disable=1，关闭虚拟系统
+fss0=atmosphere/package3，Hekate的FSS0引导
+stock=1，启动正版系统引导
+icon=bootloader/res/icon_switch.bmp，启动图标
+id=ofw-sys，启动项ID
+    [ATM-SYS]，真实破解系统（Hekate的Fss0引导）
+emummc_force_disable=1，关闭虚拟系统
+fss0=atmosphere/package3，Hekate的FSS0引导
+kip1patch=nosigchk，启动sigpatch
+atmosphere=1，启动大气层破解权限
+logopath=bootloader/bootlogo.bmp，开机图
+icon=bootloader/res/sysnand.bmp，启动图标
+id=cfw-sys，启动项ID
 
+【第四章  大气层搭配包整合教程】
+    1.搭配包分三类，分别是特斯拉内核、大气层插件、相册NRO软件。
+    2.特斯拉内核三个构成，分别是特斯拉启动器ovlloader，特斯拉菜单ovlmenu.ovl，特斯拉系统设定ovlSysmodules.ovl，这是必须的，相当于特斯拉插件的纯净版。其中ovlloader和ovlmenu.ovl是基础核心，是对应大气层的libnx开发的，其它插件都要符合这个核心，否则会出错。
+    特斯拉核心目前分两种
+原版核心的ovlloader和ovlmenu.ovl是在这里下载
+https://github.com/WerWolv/nx-ovlloader/releases
+https://github.com/WerWolv/Tesla-Menu/releases
+修改版核心的ovlloader和ovlmenu.ovl是在这里下载
+https://www.91tvg.com/thread-222735-1-1.html
+两者的区别是
+原版特斯拉核心是基于旧的大气层libnx开发，其它在Github上发布特斯拉平台的大气层插件都是符合这个核心开发，所以兼容性和稳定性好，插件更新也快，但汉化版少。
+修改版核心是zdm65477730基于新的大气层libnx开发，而且做了验证，所以要想用其它的插件，需要zdm65477730进行开发适配才可以用，优点有多语言菜单。
+我发的奇乐融合大气层破解包里带的特斯拉核心是zdm65477730基于旧的大气层libnx开发，可以支持github上的大气层插件。
+    3.大气层的插件有很多，多个少个都行，随心添加删除。只是插件可以进驻系统后台，会占资源，容易造成系统奔溃，除了ovlloader，其它大部分的大气层插件也都有启动器，在/atmosphere/contents/，所以除特斯拉启动器，其它大气层插件的启动器不要启动，如果要启动可以去深海工具箱的后台服务启动。有需要再开，不需要就关掉，保证系统稳定。
+    4.大气层插件和特斯拉挂钩的，不少插件就有ovl和nro两个版本，ovl版功能阉割，但能嵌入特斯拉菜单，nro功能全，但要进相册开启这个nro，两个版本可以择其一，如sys-clk超频插件、edizon金手指插件。
+    还有的大气层插件只有ovl版本，如emiibo插件、fastcfwswitch插件。
+    还有的大气层插件只有启动器，没有ovl或nro版本，但可以在deepsea工具箱启动，如sys-con手柄插件、missioncontrol蓝牙手柄插件。
+    5.相册里的软件，叫它NRO软件，种类也有很多，都是一个.nro文件，多个少个都行，随心添加删除，搭配包组合就包含AtmoXL-Titel-Installer.nro游戏安装器、Checkpoint.nro存档管理器等。有些nro文件会在指定Switch/子文件夹中生成config.json，所以这些nro文件要放在Switch/指定的子文件夹中，否则会在相册出现空的文件夹。
 
+【第五章  大气层搭配包文件列表】
+[atmosphere]，搭配包A组合
+  -|-|-[contents]，是插件的启动器
+    -|-|-[00FF0000636C6BFF]，sys-clk超频插件启动器
+    -|-|-[00FF0000636C6BFFsys-clk]，空目录名为方便找位置
+    -|-|-[0000000000534C56]，SaltyNX底座手持插件启动器
+    -|-|-[0000000000534C56SaltyNX]
+    -|-|-[420000000007E51A]，特斯拉启动器
+      -|-|-[flags]
+        -|-|-boot2.flag，空文件的作用是启动，删除它就不会启动
+      -|-|-exefs.nsp，是特斯拉插件启动器的文件
+      -|-|-toolbox.json，能在深海工具箱里显示，切换开和关
+    -|-|-[420000000007E51Atesla]
+    -|-|-[690000000000000D]，sys-con手柄插件启动器
+    -|-|-[690000000000000Dsys-con]
+[config]，插件配置文件
+    -|-|-[sys-clk]
+    -|-|-[sys-con]
+    -|-|-[tesla]
+      -|-|-config.ini，特斯拉启动组合键
+[SaltySD]，底座手持插件的组件
+[switch]，是相册NRO软件的目录
+    -|-|-[.overlays]，特斯拉插件的ovl文件目录
+      -|-|-[lang]，特斯拉插件的语言包
+      -|-|-ovlEdiZon.ovl，金手指Edizon插件
+      -|-|-ovlmenu.ovl，特斯拉菜单
+      -|-|-ovlSysmodules.ovl，特斯拉系统设定
+      -|-|-ReverseNX-RT-ovl.ovl，底座手持插件
+      -|-|-Status-Monitor-Overlay.ovl，系统监控插件
+      -|-|-sys-clk-overlay.ovl，超频插件
+    -|-|-[AtmoXL-Titel-Installer]
+      -|-|-AtmoXL-Titel-Installer.nro，游戏安装器
+    -|-|-[Checkpoint]
+      -|-|-Checkpoint.nro，存档管理器
+    -|-|-[DBI]
+      -|-|-dbi.nro，游戏安装器
+      -|-|-dbi.config，游戏安装器设置
+    -|-|-[DeepSea-Toolbox]
+      -|-|-DeepSea-Toolbox.nro，深海工具箱
+    -|-|-[goldleaf]
+      -|-|-goldleaf.nro，文件管理器
+    -|-|-[jksv]
+      -|-|-jksv.nro，存档管理器
+    -|-|-NXThemesInstaller.nro，主题安装器
 
-- [Features](#features)
-- [Bootloader folders and files](#bootloader-folders-and-files)
-- [Bootloader configuration](#bootloader-configuration)
-  * [hekate global Configuration keys/values](#hekate-global-configuration-keysvalues-when-entry-is-config)
-  * [Boot entry key/value combinations](#boot-entry-keyvalue-combinations)
-  * [Boot entry key/value combinations for Exosphère](#boot-entry-keyvalue-combinations-for-exosphère)
-  * [Payload storage](#payload-storage)
-  * [Nyx Configuration keys/values](#nyx-configuration-keysvalues-nyxini)
-
-
-
-## Features
-
-- **Fully Configurable and Graphical** with Touchscreen and Joycon input support
-- **Launcher Style, Background and Color Themes**
-- **HOS (Switch OS) Bootloader** -- For CFW Sys/Emu, OFW Sys and Stock Sys
-- **Android & Linux Bootloader**
-- **Payload Launcher**
-- **eMMC/emuMMC Backup/Restore Tools**
-- **SD Card Partition Manager** -- Prepares and formats SD Card for any combo of HOS (Sys/emuMMC), Android and Linux
-- **emuMMC Creation & Manager** -- Can also migrate and fix existing emuMMC
-- **Switch Android & Linux flasher**
-- **USB Mass Storage (UMS) for SD/eMMC/emuMMC** -- Converts Switch into a SD Card Reader
-- **USB Gamepad** -- Converts Switch with Joycon into a USB HID Gamepad
-- **Hardware and Peripherals info** (SoC, Fuses, RAM, Display, Touch, eMMC, SD, Battery, PSU, Charger)
-- **Many other tools** like Archive Bit Fixer, Touch Calibration, SD/eMMC Benchmark, AutoRCM enabler and more
-
-
-## Bootloader folders and files
-
-| Folder/File              | Description                                                           |
-| ------------------------ | --------------------------------------------------------------------- |
-| bootloader               | Main folder.                                                          |
-|  \|__ bootlogo.bmp       | It is used if no `logopath` key is found. User provided. Can be skipped. |
-|  \|__ hekate_ipl.ini     | Main bootloader configuration and boot entries in `Launch` menu.      |
-|  \|__ nyx.ini            | Nyx GUI configuration                                                 |
-|  \|__ patches.ini        | Add external patches. Can be skipped. A template can be found [here](./res/patches_template.ini) |
-|  \|__ update.bin         | If newer, it is loaded at boot. Normally for modchips. Auto updated and created at first boot. |
-| bootloader/ini/          | For individual inis. `More configs` menu. Autoboot is supported.   |
-| bootloader/res/          | Nyx user resources. Icons and more.                                   |
-|  \|__ background.bmp     | Nyx - Custom background. User provided.                               |
-|  \|__ icon_switch.bmp    | Nyx - Default icon for CFWs.                                          |
-|  \|__ icon_payload.bmp   | Nyx - Default icon for Payloads.                                      |
-| bootloader/sys/          | hekate and Nyx system modules folder.                                 |
-|  \|__ emummc.kipm        | emuMMC KIP1 module. !Important!                                       |
-|  \|__ libsys_lp0.bso     | LP0 (sleep mode) module. Important!                                   |
-|  \|__ libsys_minerva.bso | Minerva Training Cell. Used for DRAM Frequency training. !Important!  |
-|  \|__ nyx.bin            | Nyx - hekate's GUI. !Important!                                       |
-|  \|__ res.pak            | Nyx resources package. !Important!                                    |
-|  \|__ thk.bin            | Atmosphère Tsec Hovi Keygen. !Important!                              |
-| bootloader/screenshots/  | Folder where Nyx screenshots are saved                                |
-| bootloader/payloads/     | For the `Payloads` menu. All CFW bootloaders, tools, Linux payloads are supported. Autoboot only supported by including them into an ini. |
-| bootloader/libtools/     | Reserved                                                              |
-
-
-
-## Bootloader configuration
-
-The bootloader can be configured via 'bootloader/hekate_ipl.ini' (if it is present on the SD card). Each ini section represents a boot entry, except for the special section 'config' that controls the global configuration.
-
-
-There are four possible type of entries. "**[ ]**": Boot entry, "**{ }**": Caption, "**#**": Comment, "*newline*": .ini cosmetic newline.
-
-
-**You can find a template [Here](./res/hekate_ipl_template.ini)**
-
-
-### hekate Global Configuration keys/values (when entry is *[config]*):
-
-| Config option      | Description                                                |
-| ------------------ | ---------------------------------------------------------- |
-| autoboot=0         | 0: Disable, #: Boot entry number to auto boot.             |
-| autoboot_list=0    | 0: Read `autoboot` boot entry from hekate_ipl.ini, 1: Read from ini folder (ini files are ASCII ordered). |
-| bootwait=3         | 0: Disable (It also disables bootlogo. Having **VOL-** pressed since injection goes to menu.), #: Time to wait for **VOL-** to enter menu. Max: 20s. |
-| noticker=0         | 0: Animated line is drawn during custom bootlogo, signifying time left to skip to menu. 1: Disable. |
-| autohosoff=1       | 0: Disable, 1: If woke up from HOS via an RTC alarm, shows logo, then powers off completely, 2: No logo, immediately powers off.|
-| autonogc=1         | 0: Disable, 1: Automatically applies nogc patch if unburnt fuses found and a >= 4.0.0 HOS is booted. |
-| bootprotect=0      | 0: Disable, 1: Protect bootloader folder from being corrupted by disallowing reading or editing in HOS. |
-| updater2p=0        | 0: Disable, 1: Force updates (if needed) the reboot2payload binary to be hekate. |
-| backlight=100      | Screen backlight level. 0-255.                             |
-
-
-### Boot entry key/value combinations:
-
-| Config option          | Description                                                |
-| ---------------------- | ---------------------------------------------------------- |
-| warmboot={FILE path}   | Replaces the warmboot binary                               |
-| secmon={FILE path}     | Replaces the security monitor binary                       |
-| kernel={FILE path}     | Replaces the kernel binary                                 |
-| kip1={FILE path}       | Replaces/Adds kernel initial process. Multiple can be set. |
-| kip1={FOLDER path}/*   | Loads every .kip/.kip1 inside a folder. Compatible with single kip1 keys. |
-| fss0={FILE path}       | Takes an Atmosphere `package3` binary (formerly fusee-secondary.bin) and `extracts` all needed parts from it. kips, exosphere, warmboot and mesophere if enabled. |
-| fss0experimental=1     | Enables loading of experimental content from a FSS0 storage |
-| exofatal={FILE path}   | Replaces the exosphere fatal binary for Mariko             |
-| ---------------------- | ---------------------------------------------------------- |
-| kip1patch=patchname    | Enables a kip1 patch. Specify with multiple lines and/or in one line with `,` as separator. If actual patch is not found, a warning will show up |
-| emupath={FOLDER path}  | Forces emuMMC to use the selected one. (=emuMMC/RAW1, =emuMMC/SD00, etc). emuMMC must be created by hekate because it uses the raw_based/file_based files. |
-| emummcforce=1          | Forces the use of emuMMC. If emummc.ini is disabled or not found, then it causes an error. |
-| emummc_force_disable=1 | Disables emuMMC, if it's enabled.                           |
-| stock=1                | Disables unneeded kernel patching and CFW kips when running stock or semi-stock. `If emuMMC is enabled, emummc_force_disable=1` is required. emuMMC is not supported on stock. If additional KIPs are needed other than OFW's, you can define them with `kip1` key. No kip should be used that relies on Atmosphère patching, because it will hang. If `NOGC` is needed, use `kip1patch=nogc`. |
-| fullsvcperm=1          | Disables SVC verification (full services permission). Doesn't work with Mesosphere as kernel. |
-| debugmode=1            | Enables Debug mode. Obsolete when used with exosphere as secmon. |
-| atmosphere=1           | Enables Atmosphère patching. Not needed when `fss0` is used. |
-| ---------------------- | ---------------------------------------------------------- |
-| payload={FILE path}    | Payload launching. Tools, Android/Linux, CFW bootloaders, etc. Any key above when used with that, doesn't get into account. |
-| ---------------------- | ---------------------------------------------------------- |
-| id=IDNAME              | Identifies boot entry for forced boot via id. Max 7 chars. |
-| logopath={FILE path}   | If it exists, it will load the specified bitmap. Otherwise `bootloader/bootlogo.bmp` will be used if exists |
-| icon={FILE path}       | Force Nyx to use the icon defined here. If this is not found, it will check for a bmp named as the boot entry ([Test 2] -> `bootloader/res/Test 2.bmp`). Otherwise defaults will be used. |
-
-
-**Note1**: When using the wildcard (`/*`) with `kip1` you can still use the normal `kip1` after that to load extra single kips.
-
-**Note2**: When using FSS0 it parses exosphere, warmboot and all core kips. You can override the first 2 by using `secmon`/`warmboot` after defining `fss0`.
-You can define `kip1` to load an extra kip or many via the wildcard (`/*`) usage.
-
-**Warning**: Careful when you define *fss0 core* kips when using `fss0` or the folder (when using `/*`) includes them.
-This is in case the kips are incompatible between them. If compatible, you can override `fss0` kips with no issues (useful for testing with intermediate kip changes). In such cases, the `kip1` line must be under `fss0` line.
-
-
-### Boot entry key/value combinations for Exosphère:
-
-| Config option          | Description                                                |
-| ---------------------- | ---------------------------------------------------------- |
-| nouserexceptions=1     | Disables usermode exception handlers when paired with Exosphère. |
-| userpmu=1              | Enables user access to PMU when paired with Exosphère.     |
-| cal0blank=1            | Overrides Exosphère config `blank_prodinfo_{sys/emu}mmc`. If that key doesn't exist, `exosphere.ini` will be used. |
-| cal0writesys=1         | Overrides Exosphère config `allow_writing_to_cal_sysmmc`. If that key doesn't exist, `exosphere.ini` will be used. |
-| usb3force=1            | Overrides system settings mitm config `usb30_force_enabled`. If that key doesn't exist, `system_settings.ini` will be used. |
-
-
-**Note**: `cal0blank`, `cal0writesys`, `usb3force`, as stated override the `exosphere.ini` or `system_settings.ini`. 0: Disable, 1: Enable, Key Missing: Use original value.
-
-
-**Note2**: `blank_prodinfo_{sys/emu}mmc`, `allow_writing_to_cal_sysmmc` and `usb30_force_enabled` in `exosphere.ini` and `system_settings.ini` respectively, are the only atmosphere config keys that can affect hekate booting configuration externally, **if** the equivalent keys in hekate config are missing.
-
-
-### Payload storage:
-
-hekate has a boot storage in the binary that helps it configure it outside of BPMP enviroment:
-
-| Offset / Name           | Description                                                       |
-| ----------------------- | ----------------------------------------------------------------- |
-| '0x94' boot_cfg         | bit0: `Force AutoBoot`, bit1: `Show launch log`, bit2: `Boot from ID`, bit3: `Boot to emuMMC`. |
-| '0x95' autoboot         | If `Force AutoBoot`, 0: Force go to menu, else boot that entry.   |
-| '0x96' autoboot_list    | If `Force AutoBoot` and `autoboot` then it boots from ini folder. |
-| '0x97' extra_cfg        | When menu is forced: bit5: `Run UMS`.                             |
-| '0x98' xt_str[128]      | Depends on the set cfg bits.                                      |
-| '0x98' ums[1]           | When `Run UMS` is set, it will launch the selected UMS. 0: SD, 1: eMMC BOOT0, 2: eMMC BOOT1, 3: eMMC GPP, 4: emuMMC BOOT0, 5: emuMMC BOOT1, 6: emuMMC GPP,  |
-| '0x98' id[8]            | When `Boot from ID` is set, it will search all inis automatically and find the boot entry with that id and boot it. Must be NULL terminated. |
-| '0xA0' emummc_path[120] | When `Boot to emuMMC` is set, it will override the current emuMMC (boot entry or emummc.ini). Must be NULL terminated. |
-
-
-If the main .ini is not found, it is created on the first hekate boot and only has the `[config]` entry.
-
-
-### Nyx Configuration keys/values (nyx.ini):
-
-| Config option      | Description                                                |
-| ------------------ | ---------------------------------------------------------- |
-| themebg=2d2d2d     | Sets Nyx background color in HEX. EXPERIMENTAL.            |
-| themecolor=167     | Sets Nyx color of text highlights.                         |
-| entries5col=0      | 1: Sets Launch entry columns from 4 to 5 per line. For a total of 10 entries. |
-| timeoff=100        | Sets time offset in HEX. Must be in HOS epoch format       |
-| homescreen=0       | Sets home screen. 0: Home menu, 1: All configs (merges Launch and More configs), 2: Launch, 3: More Configs. |
-| verification=1     | 0: Disable Backup/Restore verification, 1: Sparse (block based, fast and mostly reliable), 2: Full (sha256 based, slow and 100% reliable). |
-| ------------------ | ------- The following options can only be edited in nyx.ini ------- |
-| umsemmcrw=0        | 1: eMMC/emuMMC UMS will be mounted as writable by default. |
-| jcdisable=0        | 1: Disables Joycon driver completely.                      |
-| jcforceright=0     | 1: Forces right joycon to be used as main mouse control.   |
-| bpmpclock=1        | 0: Auto, 1: Faster, 2: Fast. Use 2 if Nyx hangs or some functions like UMS/Backup Verification fail. |
-
-
-```
-hekate  (c) 2018,      naehrwert, st4rk.
-        (c) 2018-2022, CTCaer.
-
-Nyx GUI (c) 2019-2022, CTCaer.
-
-Thanks to: derrek, nedwill, plutoo, shuffle2, smea, thexyz, yellows8.
-Greetings to: fincs, hexkyz, SciresM, Shiny Quagsire, WinterMute.
-
-Open source and free packages used:
- - FatFs R0.13a, Copyright (c) 2017, ChaN
- - bcl-1.2.0, Copyright (c) 2003-2006, Marcus Geelnard
- - Atmosphère (Exosphere types/panic, prc id kernel patches),
-   Copyright (c) 2018-2019, Atmosphère-NX
- - elfload, Copyright (c) 2014 Owen Shepherd, Copyright (c) 2018 M4xw
- - Littlev Graphics Library, Copyright (c) 2016 Gabor Kiss-Vamosi
-
-                         ___
-                      .-'   `'.
-                     /         \
-                     |         ;
-                     |         |           ___.--,
-            _.._     |0) = (0) |    _.---'`__.-( (_.
-     __.--'`_.. '.__.\    '--. \_.-' ,.--'`     `""`
-    ( ,.--'`   ',__ /./;   ;, '.__.'`    __
-    _`) )  .---.__.' / |   |\   \__..--""  """--.,_
-   `---' .'.''-._.-'`_./  /\ '.  \ _.--''````'''--._`-.__.'
-         | |  .' _.-' |  |  \  \  '.               `----`
-          \ \/ .'     \  \   '. '-._)
-           \/ /        \  \    `=.__`'-.
-           / /\         `) )    / / `"".`\
-     , _.-'.'\ \        / /    ( (     / /
-      `--'`   ) )    .-'.'      '.'.  | (
-             (/`    ( (`          ) )  '-;   [switchbrew]
-```
