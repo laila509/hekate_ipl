@@ -1,35 +1,71 @@
 【分享】菜鸟都知道怎么整合大气层破解包2.0版
+
     我不是什么大佬大神，也是和大家一样菜鸟入门，通过大佬大神们的教程，知道破解的流程，也学会整合大气层，通过使用觉得大气层越简单越好，那么多插件软件其实用途不大，而且可以根据需要增加。
+    
 https://github.com/laila509/hekate_ipl
+
     2.0版的教程比起前面1.0版的教程，补充Sigpatch获取方法，补充Tesla插件核心版本的区别。
 
 【第一章  大气层纯净包整合教程】
+
     1.整合大气层首先做纯净包，就是Atmosphere+Hekate+Sigpatch的三件套，有了它就可以破解系统，运行已安装的破解游戏。纯净包是基础包可直接用，只要加合适的引导就可适用所有破解机，不区分软破用的TX注入器或DQC注入器，不区分TX芯片还是HW芯片，软硬破通用。另外通用的还有Switch系统的离线升级包，最新SW15.0.1系统。
+    
     大气层整合包=纯净包+搭配包，搭配包就是特斯拉等一众插件和相册NRO软件的组合，搭配包不能直接使用，需要覆盖到纯净包或其它大气层整合包上使用，整合包应实用为主，需要插件和软件多少可以不断的添加删减。
+    
     2.最新的三件套版本是Atmosphere1.4.0，Hekate5.9.0，Sigpatch最高15.0.0/15.0.1
+    
     Atmosphere，https://github.com/Atmosphere-NX/Atmosphere/releases
+    
     下atmosphere-1.4.0-master的zip和fusee.bin，zip解包后是[atmosphere],[switch]和hbmenu.nro
+    
     Hekate，https://github.com/CTCaer/hekate/releases
+    
     下hekate_ctcaer_5.9.0.zip，zip解包后是[bootloader]和hekate_ctcaer_5.9.0.bin
-    3.Sigpatch大气层签名补丁，允许大气层玩破解游戏，原下载https://github.com/ITotalJustice/patches/releases，已被关闭，所以可以自制或从其它地方找。
-    自制方法是下载https://github.com/mrdude2478/IPS_Patch_Creator/releases，在电脑上打开IPS_Patch_Creator，还要有大气层的package3文件、Switch系统离线升级包以及Lockpick_rcm获取对应Switch系统的prod.key。
-    Sigpatch分ES patch，FS patch，Loader patch和nfim_ctest，前三个和玩破解游戏有关，nfim_ctest可以跳过联网服务器认证。其中ES patch，FS patch和nfim_ctest需要switch离线升级包和对应prod.key才可以做出来，loader patch只需要大气层package3文件就可以做出来。大气层的引导分fss0和fusee，其中ES patch和nfim_ctest，两种引导一样，FS patch和Loader patch，两种引导不一样，但是只要都在TF卡上就不会出问题。
+    
+    3.Sigpatch大气层签名补丁，允许大气层玩破解游戏，原下载https://github.com/ITotalJustice/patches/releases，
+    
+    已被关闭，所以可以自制或从其它地方找。
+    
+    自制方法是下载https://github.com/mrdude2478/IPS_Patch_Creator/releases，
+    
+    在电脑上打开IPS_Patch_Creator，还要有大气层的package3文件、Switch系统离线升级包以及Lockpick_rcm获取对应Switch系统的prod.key。
+    
+    Sigpatch分ES patch，FS patch，Loader patch和nfim_ctest，前三个和玩破解游戏有关，nfim_ctest可以跳过联网服务器认证。
+    
+    其中ES patch，FS patch和nfim_ctest需要switch离线升级包和对应prod.key才可以做出来，loader patch只需要大气层package3文件就可以做出来。大气层的引导分fss0和fusee，其中ES patch和nfim_ctest，两种引导一样，FS patch和Loader patch，两种引导不一样，但是只要都在TF卡上就不会出问题。
+    
     做出来的sigpatch是通用所有对应的大气层整合包，所以还可以从别人发布的大气层1.4.0整合包里获取。
+    
     sigpatch提取的位置是atmosphere/exefs_patches的es_patches和nfim_ctest两个文件夹，atmosphere/kip_patches的fs_patches和loader_patches两个文件夹，最后还有一个文件是bootloader/patches.ini，它是fss0引导的FS patch和Loader patch。
+    
     4.三件套不分先后复制到同一目录，fusee.bin移至/bootloader/payloads/
+    
     5.通用的大气层设置，适用所有大气层包，在奇乐融合大气层破解包中找
+    
 override_config.ini，stratosphere.ini和system_settings.ini复制/atmosphere/config/
+
 exosphere.ini，万能前端hbmenu.nsp和sx gear的boot.dat复制根目录
+
 把hekate_ctcaer_5.9.0.bin重命名payload.bin
+
 把Lockpick_RCM.bin，TegraExplorer.bin等常用引导文件复制/bootloader/payloads/
+
 emummc.txt复制/atmosphere/hosts/
+
 如想真实破解系统也开hosts和序号保护，把emummc.txt再复制成sysmmc.txt，打开exosphere.ini把blank_prodinfo_sysmmc=0改成blank_prodinfo_sysmmc=1保存。
+
     6.自编的Hekate设置，所有大气层包就这差别，可参照乐享或奇想大气层包调整
+    
 /bootloader/hekate_ipl.ini是启动文件，设置启动全靠它
+
 /bootloader/bootlogo.bmp是开机图，文件名和位置以hekate_ipl.ini为准
+
 /bootloader/res/的图片是启动图标，文件名和位置以hekate_ipl.ini为准
+
 /bootloader/ini/的启动文件也和hekate_ipl.ini相似，在launch右边的more configs出现
+
     7.后期升级三件套，只要在原版本上对比添加新的组件就行了
+    
 下Beyond Compare，左右两边分别是旧整合包和新的三件套组件，区分哪些需要更新
 
 【第二章  大气层纯净包文件列表】
