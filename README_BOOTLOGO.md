@@ -16,4 +16,4 @@ If a boot entry specifies a custom logo path (`logopath=`), this one will be loa
 If the above is not found or the format is not correct, it will try to load `bootloader/bootlogo.bmp`.
 If this is not found, the default hekate logo will be used.
 
-(`bootloader/bootlogo.bmp` is basically like a global bootlogo.)
+bootloader/bootlogo.bmp` is basically like a global bootlogo.
